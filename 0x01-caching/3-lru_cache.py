@@ -3,6 +3,7 @@
 
 BaseCaching = __import__('base_caching').BaseCaching
 
+
 class LRUCache(BaseCaching):
     """ LRUCache class """
 
@@ -34,4 +35,3 @@ class LRUCache(BaseCaching):
         self.order.remove(key)
         self.order.append(key)
         return self.cache_data[key]
-    
