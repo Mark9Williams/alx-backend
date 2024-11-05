@@ -17,18 +17,21 @@ users = {
     4: {"name": "Teletubby", "locale": None, "timezone": "Europe/London"},
 }
 
+
 class Config:
     """App configuration for available languages and defaults."""
     LANGUAGES = ["en", "fr"]
     BABEL_DEFAULT_LOCALE = "en"
     BABEL_DEFAULT_TIMEZONE = "UTC"
 
+
 app.config.from_object(Config)
+
 
 @babel.localeselector
 def get_locale() -> str:
     """Select a language translation to use for a request"""
-     # 1. Check URL parameter
+    # 1. Check URL parameter
     locale = request.args.get("locale")
     if locale in app.config["LANGUAGES"]:
         return locale
@@ -43,20 +46,24 @@ def get_locale() -> str:
     # 3. Check request header preferences
     return request.accept_languages.best_match(app.config["LANGUAGES"])
 
+
 def get_user() -> Optional[dict]:
     """ Mock a user login """
-    user_id = request.args.get('login_as', type = int)
+    user_id = request.args.get('login_as', type=int)
     return users.get(user_id) if user_id in users else None
+
 
 @app.before_request
 def before_request() -> None:
     """ Find a user if any """
     g.user = get_user()
 
+
 @app.route('/')
 def index() -> str:
     """ Returns the index page """
     return render_template('5-index.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
