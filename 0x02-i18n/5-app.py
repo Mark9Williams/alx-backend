@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """ Mocking a user login system """
 
-from typing import Optional, Dict
 from flask import Flask, render_template, request, g
 from flask_babel import Babel, _
+from typing import Optional, Dict
+
 
 app: Flask = Flask(__name__)
 
